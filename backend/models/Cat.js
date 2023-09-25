@@ -25,9 +25,9 @@ Cat.init({
     type: DataTypes.STRING,
     allowNull: false
   },
-  dob: {
-    type: DataTypes.DATE,
-    allowNull: true
+  age: {
+    type: DataTypes.JSON,
+    allowNull: true,
   },
   gender: {
     type: DataTypes.STRING,

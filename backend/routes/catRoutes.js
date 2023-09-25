@@ -7,18 +7,21 @@ const CatModel = require('../models/Cat');
 //Routes for Cat CRUD operations
 
 router.post('/addCat', verifyToken, async (req, res) => {
-  console.log("UserID from request:", req.userID);  // Debug line
+  console.log("UserID from request:", req.userID);       // Debug line
 
-  const { name, breed, colour, dob, gender, avatar, chronic_issues } = req.body;
+  const { name, breed, colour, ageYears, ageMonths, gender, avatar, chronic_issues } = req.body;
   const userID = req.userID;  // Ensure this variable name matches with the one set in the middleware
 
   try {
+
+    // Create a JSON object for age
+    const age = JSON.stringify({ years: ageYears, months: ageMonths });
   
     const newCat = await CatModel.create({
       name,
       breed,
       colour,
-      dob,
+      age,          // Now a JSON object
       gender,
       avatar,  
       chronic_issues,

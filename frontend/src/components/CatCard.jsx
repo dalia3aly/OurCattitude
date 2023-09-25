@@ -4,7 +4,7 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 400,
+    maxWidth: 300,
   },
   media: {
     height: 140,
@@ -14,6 +14,8 @@ const useStyles = makeStyles({
 const CatCard = ({ cat }) => {
   const classes = useStyles();
 
+  // Parse age from JSON to object (cat.age is now a JSON string column)
+  const age = cat?.age ? JSON.parse(cat.age) : null;
 
   return (
     <Card className={classes.root}>
@@ -41,7 +43,7 @@ const CatCard = ({ cat }) => {
           </Grid>
           <Grid item xs={6}>
             <Typography variant="body2" color="textSecondary">
-              DoB: {cat?.dob || 'Unknown'}
+              Age: {age ? `${age.years} years, ${age.months} months` : 'Unknown'}
             </Typography>
           </Grid>
           <Grid item xs={6}>
