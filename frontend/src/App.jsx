@@ -4,7 +4,6 @@ import viteLogo from "/vite.svg";
 import "./App.css";
 // import { BrowserRouter, Route, Routes, useNavigate } from "react-router-dom";
 import ButtonRip from "./themes/ButtonRip.jsx";
-import AddCat from "./components/AddCat";
 import { Box, Button, Container, Grid } from '@mui/material';
 import { Link } from "react-router-dom";
 import { Add } from "@mui/icons-material";
@@ -12,9 +11,9 @@ import CatFactBox from "./components/CatFactBox";
 import { ThemeProvider } from "@mui/material/styles";
 import GuestAppBar from "./components/GuestAppBar";
 import CatProfilePage from "./components/CatProfile";
+import AddingCat from "./components/AddingCat";
 
 function App() {
-  // const [count, setCount] = useState(0)
 
   return (
     < >
@@ -29,6 +28,8 @@ function App() {
         <Link to="/login">
           <ButtonRip label="Log In" />
         </Link>
+        <AddingCat />
+        {/* <AddCat /> */}
         <Grid item md={8}>
    <CatFactBox />
   </Grid>

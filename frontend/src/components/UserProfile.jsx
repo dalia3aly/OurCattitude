@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CatCard from './CatCard';
 import Grid from '@mui/material/Grid';
 
-const UserProfileTest = () => {
+const UserProfileComp = () => {
   const [cats, setCats] = useState([]); // Assume this will hold the data from your DB
 
   // Simulate fetching data from your database
@@ -32,4 +32,4 @@ const UserProfileTest = () => {
   );
 };
 
-export default UserProfileTest;
+export default UserProfileComp;

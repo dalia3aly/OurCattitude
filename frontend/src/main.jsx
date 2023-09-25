@@ -10,6 +10,9 @@ import LoginPage from './pages/LogInPage.jsx';
 import UserProfilePage from './pages/UserProfilePage.jsx';
 import ProtectedRoutes from './routes/ProtectedRoutes';
 import { isUserLoggedIn } from './utilities/utils';
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
+import { AuthProvider } from './context/AuthContext';
 
 
 const ProtectedUserProfile = () => {
@@ -20,6 +23,7 @@ const ProtectedUserProfile = () => {
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={MainTheme}>
+    <AuthProvider>
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<App />} />
@@ -29,6 +33,7 @@ ReactDOM.render(
           {/* Add more Routes here as needed */}
         </Routes>
       </BrowserRouter>
+      </AuthProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')

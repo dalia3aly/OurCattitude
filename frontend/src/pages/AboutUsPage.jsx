@@ -25,7 +25,7 @@ const AboutUs = () => {
         </Typography>
 
         <Typography paragraph>
-        It's designed to take only a couple of minutes a day to log your cat's
+        It's designed to take only one minute a day to log your cat's
         routine and behaviours, and the data can be used to help you and your vet 
         make informed decisions about your cat's health. 
       </Typography>

@@ -1,28 +1,30 @@
 import React from "react";
 import { TextField, Button, Container, Typography, Box } from "@mui/material";
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../context/AuthContext';
 import axios from "axios";
 
 const UserLogIn = ({ onLogin }) => {
+  const navigate = useNavigate();
+  const { login } = useAuth();
+
 
   const handleSubmit = async (e) => {
-  e.preventDefault();
-  const username = e.target.username.value;
-  const password = e.target.password.value;
-  try {
-    const response = await axios.post('http://localhost:3000/api/user/login', {
-      username,
-      password,
-    });
-
-     if (response.data.token) {
-        localStorage.setItem('token', response.data.token);
-        // navigate to user profile page
-        if (typeof onLogin === 'function') {
-          onLogin(); // This will only be executed if onLogin is indeed a function
-        } else {
-          console.log("`onLogin` is not a function or not passed as a prop.");
-        }
-      };
+    e.preventDefault();
+    const username = e.target.username.value;
+    const password = e.target.password.value;
+  
+    try {
+      const response = await axios.post('http://localhost:3000/api/user/login', {
+        username,
+        password,
+      });
+  
+      if (response.data.token) {
+        login(response.data.token);          // Using AuthContext to manage token AFTER the async call
+        navigate('/userprofile');          // Redirect to user profile
+      }
+  
     } catch (error) {
       // Handle error: API call unsuccessful
       console.log("There was an error logging in:", error);

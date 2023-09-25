@@ -77,7 +77,7 @@ const UserSignUp = () => {
       {isSubmitted ? (
         <div>
           <Typography variant="h5">Thank you for signing up!</Typography>
-          <img src="src/assets/happycat.png" alt="Confirmation" />
+          <img src="/happycat.png" alt="Confirmation" />
         </div>
       ) : (
         <form onSubmit={handleSubmit}>

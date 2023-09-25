@@ -1,66 +1,92 @@
 // UserProfile.jsx
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { Navigate } from "react-router-dom";
 import { Box, Button, Container, Grid, Dialog, Stack } from "@mui/material";
 import Header from "../themes/Header";
 import Footer from "../themes/Footer";
 import CatCard from "../components/CatCard";
 import CatFactBox from "../components/CatFactBox"; // Assuming you have a separate Cat facts box component
 import ResponsiveAppBar from "../components/ResponsiveAppBar";
-import AddCat from "../components/AddCat";
+import AddingCat from "../components/AddingCat";
+import axios from "axios";
 
 
 const UserProfile = () => {
-  const [openAddCat, setOpenAddCat] = useState(false); // State to control the AddCat dialog
+  // State for the AddingCat dialog
+  const [openAddingCat, setOpenAddingCat] = useState(false);
+  
+  // State for storing cats fetched from the server
+  const [cats, setCats] = useState([]);
 
-  const handleOpenAddCat = () => {
-    setOpenAddCat(true);
+  const handleOpenAddingCat = () => {
+    setOpenAddingCat(true);
   };
 
-  const handleCloseAddCat = () => {
-    setOpenAddCat(false);
+  const handleCloseAddingCat = () => {
+    setOpenAddingCat(false);
   };
+
+  // Fetch cats when the component mounts
+  useEffect(() => {
+    const fetchCats = async () => {
+      try {
+        const token = localStorage.getItem('token');  // Assuming you have saved your token in localStorage
+        const config = {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        };
+        console.log(config);
+        const response = await axios.get('http://localhost:3000/cat/user/cats', config);
+        if (response.data) {
+          setCats(response.data);
+        }
+      } catch (error) {
+        console.log("Error fetching cats:", error);
+      }
+    };
+    
+    fetchCats();
+  }, []);
 
   return (
-    <Container>
-      <ResponsiveAppBar />
-      {/* Main Content */}
-      <Grid container spacing={3}>
-        {/* Cat Cards */}
-        <Grid item xs={12}>
-          <Grid container spacing={2}>
-            {/* Here you would map your CatCards from the database */}
-            <Grid item>
-              <CatCard />
-            </Grid>
-            <Grid item>
-              <CatCard />
-            </Grid>
-
-            {/* Add Cat Button */}
-            <Grid item>
-              <Button
-                variant="contained"
-                color="primary"
-                style={{ width: 150, height: 150 }}
-                onClick={handleOpenAddCat} // Open the AddCat dialog when clicked
-              >
-                Add Cat
-              </Button>
-              <Dialog open={openAddCat} onClose={handleCloseAddCat}>
-              <Stack spacing={4}>
-                <AddCat />
-              </Stack>
-              </Dialog>
-            </Grid>
+  <Container>
+  <ResponsiveAppBar />
+  <Grid container spacing={3}>
+    <Grid item xs={12}>
+      <Grid container spacing={2}>
+        {cats.map((cat, index) => (
+          <Grid item key={index}>
+            <CatCard cat={cat} />
           </Grid>
+        ))}
+        
+        {/* Add Cat Button */}
+        <Grid item>
+          <Button
+            variant="contained"
+            color="primary"
+            style={{ width: 150, height: 150 }}
+            onClick={handleOpenAddingCat}
+          >
+            Add Cat
+          </Button>
+          <Dialog open={openAddingCat} onClose={handleCloseAddingCat}>
+            <Stack spacing={4}>
+              <AddingCat />
+            </Stack>
+          </Dialog>
         </Grid>
+      </Grid>
+    </Grid>
 
         {/* Cat Fact Box */}
         <Grid item xs={12}>
           <CatFactBox />
         </Grid>
       </Grid>
+
 
       {/* Footer */}
       <Footer />

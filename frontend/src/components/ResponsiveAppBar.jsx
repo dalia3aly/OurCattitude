@@ -127,7 +127,7 @@ function ResponsiveAppBar() {
               color: "inherit",
               textDecoration: "none",
             }}>
-            LOGO
+            
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
@@ -143,7 +143,7 @@ function ResponsiveAppBar() {
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
               <IconButton onClick={handleOpenUserMenu} md={{ p: 2 }}>
-                <Avatar alt="Remy Sharp" src="../assets/happycat.png" />
+                <Avatar alt="Remy Sharp" src="/Avatars/avatar1.png" />
               </IconButton>
             </Tooltip>
             <Menu
