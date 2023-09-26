@@ -1,63 +1,79 @@
-import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
-import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
-import logo2 from '../assets/Logo2.png'; 
-import Header from '../assets/Header.png';
-import { Link } from 'react-router-dom';
+import * as React from "react";
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Toolbar from "@mui/material/Toolbar";
+import IconButton from "@mui/material/IconButton";
+import Typography from "@mui/material/Typography";
+import Menu from "@mui/material/Menu";
+import MenuIcon from "@mui/icons-material/Menu";
+import Container from "@mui/material/Container";
+import Avatar from "@mui/material/Avatar";
+import Button from "@mui/material/Button";
+import Tooltip from "@mui/material/Tooltip";
+import MenuItem from "@mui/material/MenuItem";
+import AdbIcon from "@mui/icons-material/Adb";
+import logo2 from "../assets/Logo2.png";
+import Header from "../assets/Header.png";
+import { Link } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
+const pages = ["About Us"];
+const settings = ["Account Settings", "My Cats", "Logout"];
 
-
-const pages = ['About Us'];
-const settings = ['Account Settings', 'My Cats', 'Logout'];
-
-function ResponsiveAppBar() {
+const ResponsiveAppBar = () => {
+  const { logout } = useAuth();     // use the 'logout' function from the auth context
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event) => {
     setAnchorElUser(event.currentTarget);
   };
 
   const handleCloseNavMenu = () => {
     setAnchorElNav(null);
-
   };
 
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
+  };
 
+  const handleLogout = async () => {
+    console.log("Attempting to log out...");
+    try {
+      await logout(); // Call the logout function
+      console.log("Successfully logged out.");
+    } catch (error) {
+      console.error("Failed to log out", error);
+    }
+    handleCloseUserMenu(); // Close the user menu
   };
 
   return (
     <AppBar
       position="static"
-      elevation={0}           //drop no shadow
+      elevation={0} //drop no shadow
       sx={{
         background: `url(${Header}) no-repeat center center`,
         backgroundSize: "cover",
       }}>
       <Container maxWidth="xl">
-        <Toolbar disableGutters sx={{ minHeight: '250px'}}>
-        <Link to="/">
-          <img
-            src={logo2}
-            alt="Your Logo"
-            style={{ width: "300px", minHeight: '100px', marginRight: "10px", marginTop: "5px", marginBottom: "30px" }}
-          />
+        <Toolbar disableGutters sx={{ minHeight: "250px" }}>
+          <Link to="/">
+            <img
+              src={logo2}
+              alt="Your Logo"
+              style={{
+                width: "300px",
+                minHeight: "100px",
+                marginRight: "10px",
+                marginTop: "5px",
+                marginBottom: "30px",
+              }}
+            />
           </Link>
 
           <Typography
@@ -73,9 +89,7 @@ function ResponsiveAppBar() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-            }}>
-            
-          </Typography>
+            }}></Typography>
 
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
@@ -126,9 +140,7 @@ function ResponsiveAppBar() {
               letterSpacing: ".3rem",
               color: "inherit",
               textDecoration: "none",
-            }}>
-            
-          </Typography>
+            }}></Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
             {pages.map((page) => (
               <Button
@@ -162,7 +174,11 @@ function ResponsiveAppBar() {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}>
               {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
+                <MenuItem
+                  key={setting}
+                  onClick={
+                    setting === "Logout" ? handleLogout : handleCloseUserMenu
+                  }>
                   <Typography textAlign="center">{setting}</Typography>
                 </MenuItem>
               ))}
@@ -172,5 +188,5 @@ function ResponsiveAppBar() {
       </Container>
     </AppBar>
   );
-}
+};
 export default ResponsiveAppBar;

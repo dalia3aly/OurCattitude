@@ -2,6 +2,7 @@ import React from 'react';
 import { Container, Typography, Box } from '@mui/material';
 import { useState, useEffect } from 'react';
 import UserLogIn from '../components/UserLogIn';
+import ResponsiveAppBar from '../components/ResponsiveAppBar';
 
 const LogInPage = () => {
   const [showWelcomeImage, setShowWelcomeImage] = useState(false);
@@ -10,7 +11,7 @@ const LogInPage = () => {
     setShowWelcomeImage(true);
   };
     // Do whatever you want to do when a user logs in
-    // For example, navigate to the user's dashboard
+    // For example, navigate to the user's profile page
     useEffect(() => {
       let timer;
       // If showWelcomeImage is true, set up a timer
@@ -29,6 +30,8 @@ const LogInPage = () => {
     }, [showWelcomeImage]);
 
     return (
+      < >
+      <ResponsiveAppBar />
       <Container>
         <Box my={4}>
           <Typography variant="body1" paragraph>
@@ -38,12 +41,13 @@ const LogInPage = () => {
         {showWelcomeImage ? (
           <div>
             {/* Display your welcome back image here */}
-            <img src="src/assets/loggeduser.png" alt="Welcome Back" />
+            <img src="loggeduser.png" alt="Welcome Back" />
           </div>
         ) : (
           <UserLogIn onLogin={handleLogin} />
         )}
       </Container>
+      </>
     );
   };
 

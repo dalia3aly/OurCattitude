@@ -13,10 +13,11 @@ import {
   FormControlLabel,
   Radio,
 } from "@mui/material";
-import { LocalizationProvider } from "@mui/x-date-pickers";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
-import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
-import { parseISO } from "date-fns";
+// import { LocalizationProvider } from "@mui/x-date-pickers";
+// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+// import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+// import { parseISO } from "date-fns";
+import { useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
 
 // Avatar images to choose from
@@ -33,7 +34,7 @@ export const Avatar4 = () => (
   <img src="/Avatars/avatar4.png" alt="Avatar 4" width="100" height="100" />
 );
 
-const AddingCat = () => {
+const AddingCat = ({ closeForm }) => {
   const [catInfo, setCatInfo] = useState({
     name: "",
     breed: "",
@@ -74,17 +75,18 @@ const AddingCat = () => {
     });
   };
 
+  // form submission handling
 
-
-  
+  const navigate = useNavigate();  // Initialize useNavigate hook
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     const userToken = localStorage.getItem("userToken");
     // Fetching token from local storage
-    // Submit to the server
-    
+
+    // Submit to the server below
+
     axios.post("http://localhost:3000/cat/addCat", catInfo, {
         headers: {
           "Content-Type": "application/json",
@@ -93,16 +95,19 @@ const AddingCat = () => {
       })
       .then((response) => {
         console.log(response.data);
+        navigate("/userprofile"); // Navigate to the user profile page
       })
       .catch((error) => {
         console.error("There was an error!", error);
       });
   };
 
+
+
   return (
     <Container component="main" maxWidth="xs">
       <Typography component="h1" variant="h5">
-        Add Cat
+        Add a new Cat
       </Typography>
       <Box component="form" onSubmit={handleSubmit}>
         <TextField
@@ -257,6 +262,7 @@ const AddingCat = () => {
           Add Cat
         </Button>
       </Box>
+
     </Container>
   );
 };

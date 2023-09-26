@@ -14,10 +14,12 @@ export const AuthProvider = ({ children }) => {
     login: (token) => {
         localStorage.setItem('userToken', token);
         setIsAuthenticated(true);
+        console.log("Logged in.");  // Debugging line
       },
       logout: () => {
         localStorage.removeItem('userToken');
         setIsAuthenticated(false);
+        console.log("Logged out.");  // Debugging line
       }
   };
 

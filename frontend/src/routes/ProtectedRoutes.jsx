@@ -1,10 +1,20 @@
 import React from "react";
 import { Navigate, Route } from "react-router-dom";
-import { isUserLoggedIn } from '../utilities/utils';
+import { useNavigate } from "react-router-dom";
+// import { isUserLoggedIn } from '../utilities/utils';
+import { useAuth } from '../context/AuthContext';
 
 const ProtectedRoutes = ({ ...props }) => {
-  const isLoggedIn = isUserLoggedIn();
-  return isLoggedIn ? <Route {...props} /> : <Navigate to="/login" />;
+  const { isAuthenticated } = useAuth();
+  return isAuthenticated ? <Route {...props} /> : <Navigate to="/login" />;
 };
 
 export default ProtectedRoutes;
+
+
+// const ProtectedRoutes = ({ ...props }) => {
+//   const isLoggedIn = isUserLoggedIn();
+//   return isLoggedIn ? <Route {...props} /> : <Navigate to="/login" />;
+// };
+
+// export default ProtectedRoutes;
