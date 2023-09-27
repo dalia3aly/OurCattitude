@@ -3,6 +3,14 @@ const router = express.Router();
 const verifyToken = require('../middleware/authMiddleware');
 const CatModel = require('../models/Cat');
 
+//Testing endpoints:
+// Add cat : http://localhost:3000/api/cats/addCat
+// Get all cats for a user : http://localhost:3000/api/cats/user/cats
+// Get a specific cat : http://localhost:3000/api/cats/user/cat/1
+// Update a specific cat : http://localhost:3000/api/cats/editCat/1
+// Delete a specific cat : http://localhost:3000/api/cats/deleteCat/1
+
+
 
 //Routes for Cat CRUD operations
 

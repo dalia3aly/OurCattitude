@@ -4,10 +4,10 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles({
   root: {
-    maxWidth: 300,
+    maxWidth: 200,
   },
   media: {
-    height: 140,
+    height: 160,
   },
 });
 
@@ -17,7 +17,14 @@ const CatCard = ({ cat }) => {
   // Parse age from JSON to object (cat.age is now a JSON string column)
   const age = cat?.age ? JSON.parse(cat.age) : null;
 
+  // for CatDetailsPage
+  const handleCardClick = () => {
+    // Navigate to CatDetail view
+    window.location.href = `/cat/${cat.catID}`;
+  };
+
   return (
+    <div onClick={handleCardClick}>
     <Card className={classes.root}>
       <CardMedia
         className={classes.media}
@@ -41,7 +48,7 @@ const CatCard = ({ cat }) => {
               Colour: {cat?.colour || 'Unknown'}
             </Typography>
           </Grid>
-          <Grid item xs={6}>
+          {/* <Grid item xs={6}>
             <Typography variant="body2" color="textSecondary">
               Age: {age ? `${age.years} years, ${age.months} months` : 'Unknown'}
             </Typography>
@@ -55,10 +62,11 @@ const CatCard = ({ cat }) => {
             <Typography variant="body2" color="textSecondary">
               Chronic Issues: {cat?.chronic_issues ? cat.chronic_issues : 'None'}
             </Typography>
-          </Grid>
+          </Grid> */}
         </Grid>
       </CardContent>
     </Card>
+    </div>
   );
 };
 

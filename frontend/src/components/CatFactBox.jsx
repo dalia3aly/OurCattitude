@@ -18,7 +18,7 @@ const CatFactBox = () => {
   return (
     <Box p={3} boxShadow={3} bgcolor="background.paper" borderRadius="borderRadius">
       <Typography variant="h6">
-        💡🐈 Did you know?
+      🤯 Did you know?
       </Typography>
       <Typography variant="body1">
         {fact}

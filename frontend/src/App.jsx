@@ -12,6 +12,7 @@ import { ThemeProvider } from "@mui/material/styles";
 import GuestAppBar from "./components/GuestAppBar";
 import CatProfilePage from "./components/CatProfile";
 import AddingCat from "./components/AddingCat";
+import DailyLogForm from "./components/DailyLogForm";
 
 function App() {
 
@@ -29,7 +30,7 @@ function App() {
           <ButtonRip label="Log In" />
         </Link>
         <AddingCat />
-        {/* <AddCat /> */}
+        <DailyLogForm />
         <Grid item md={8}>
    <CatFactBox />
   </Grid>

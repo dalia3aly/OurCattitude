@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import {
   Dialog,
   DialogActions,
@@ -15,7 +15,6 @@ import {
   List,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
-import axios from "axios";
 
 
 
@@ -30,19 +29,8 @@ export default function DailyLogForm({ open, handleClose }) {
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [editableIndex, setEditableIndex] = useState(null);
 
-
-
-useEffect(() => {
-    axios
-      .get('/api/foodproducts')
-      .then(response => {
-        setFoodProducts(response.data);
-      })
-      .catch(error => {
-        console.error("There was an error fetching the food products", error);
-      });
-  }, []);
-
+  // Simulated food products data. Replace this with the actual API call
+  const availableFoods = ["Chicken", "Fish", "Beef", "Lamb"];
 
   const handleAutoComplete = (event, newValue) => {
     setSelectedFoods([...selectedFoods, newValue]);
@@ -61,25 +49,18 @@ useEffect(() => {
   //   };
 
   const handleSubmit = () => {
+    // Send these to the backend
     const formData = {
       date,
       hoursOfSleep,
       litterHabits,
       activityLevel,
       unusualBehaviours,
-      foods: selectedFoods,
     };
 
-    // Send form data to the backend
-    axios
-      .post('/api/dailylog', formData)
-      .then(response => {
-        console.log("Data submitted successfully:", response);
-      })
-      .catch(error => {
-        console.error("There was an error submitting the data:", error);
-      });
+    console.log("Submitted Data:", formData);
 
+    // Close dialog
     handleClose();
   };
 
@@ -101,12 +82,12 @@ useEffect(() => {
 
           <Typography gutterBottom>Food Logs</Typography>
           <Autocomplete
-      options={foodProducts.map(food => food.product)} 
-      onInputChange={handleAutoComplete}
-      renderInput={(params) => (
-        <TextField {...params} label="Search Food Products" />
-      )}
-    />
+            options={availableFoods}
+            onInputChange={handleAutoComplete}
+            renderInput={(params) => (
+              <TextField {...params} label="Search Food Products" />
+            )}
+          />
 
           <List>
             {selectedFoods.map((food, index) => (
