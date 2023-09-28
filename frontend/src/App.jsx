@@ -10,7 +10,6 @@ import { Add } from "@mui/icons-material";
 import CatFactBox from "./components/CatFactBox";
 import { ThemeProvider } from "@mui/material/styles";
 import GuestAppBar from "./components/GuestAppBar";
-import CatProfilePage from "./components/CatProfile";
 import AddingCat from "./components/AddingCat";
 import DailyLogForm from "./components/DailyLogForm";
 
@@ -35,7 +34,6 @@ function App() {
    <CatFactBox />
   </Grid>
     
-<CatProfilePage />
 
       </div>
 

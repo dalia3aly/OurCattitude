@@ -16,9 +16,9 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 
+// initially built with mock data for frontend testing
 
-
-export default function DailyLogForm({ open, handleClose }) {
+export default function DailyLogMOCK({ open, handleClose }) {
   const [date, setDate] = useState("");
   const [hoursOfSleep, setHoursOfSleep] = useState(0);
   const [litterHabits, setLitterHabits] = useState("");

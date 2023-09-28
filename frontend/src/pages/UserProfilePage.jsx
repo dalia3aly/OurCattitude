@@ -1,4 +1,4 @@
-// UserProfile.jsx
+// irrelevant to UserProfile.jsx 
 import React from "react";
 import { useState, useEffect } from "react";
 import { Navigate } from "react-router-dom";
@@ -10,6 +10,7 @@ import CatFactBox from "../components/CatFactBox"; // Assuming you have a separa
 import ResponsiveAppBar from "../components/ResponsiveAppBar";
 import AddingCat from "../components/AddingCat";
 import axios from "axios";
+
 
 const UserProfile = () => {
   // State for the AddingCat dialog

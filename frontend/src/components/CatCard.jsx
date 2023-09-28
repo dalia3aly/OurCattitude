@@ -1,6 +1,7 @@
 import React from 'react';
 import { Card, CardContent, CardMedia, Typography, Grid } from '@mui/material';
 import { makeStyles } from '@mui/styles';
+import { useNavigate } from 'react-router-dom';
 
 const useStyles = makeStyles({
   root: {
@@ -18,9 +19,10 @@ const CatCard = ({ cat }) => {
   const age = cat?.age ? JSON.parse(cat.age) : null;
 
   // for CatDetailsPage
+  const navigate = useNavigate();  // <-- Add this line
+
   const handleCardClick = () => {
-    // Navigate to CatDetail view
-    window.location.href = `/cat/${cat.catID}`;
+    navigate(`/cat/${cat.catID}`);  // <-- Update this line
   };
 
   return (

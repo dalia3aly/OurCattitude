@@ -15,11 +15,10 @@ import {
   List,
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Select, MenuItem } from "@mui/material";
 import axios from "axios";
 
-
-
-export default function DailyLogForm({ open, handleClose }) {
+ function DailyLogForm({ open, handleClose, catID }) {
   const [date, setDate] = useState("");
   const [hoursOfSleep, setHoursOfSleep] = useState(0);
   const [litterHabits, setLitterHabits] = useState("");
@@ -30,23 +29,30 @@ export default function DailyLogForm({ open, handleClose }) {
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [editableIndex, setEditableIndex] = useState(null);
 
+  useEffect(() => {
+    const userToken = localStorage.getItem("userToken");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
+    };
 
-
-useEffect(() => {
-    axios
-      .get('/api/foodproducts')
-      .then(response => {
+    axios.get("http://localhost:3000/api/foodproducts", config)
+      .then((response) => {
         setFoodProducts(response.data);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("There was an error fetching the food products", error);
       });
   }, []);
 
-
   const handleAutoComplete = (event, newValue) => {
-    setSelectedFoods([...selectedFoods, newValue]);
+    setSelectedFoods([
+      ...selectedFoods,
+      { fullProductName: newValue, servingSize: "50gm"  },    // Default serving size is 50gm
+    ]);
   };
+  
 
   //Edit selected food products
 
@@ -62,21 +68,28 @@ useEffect(() => {
 
   const handleSubmit = () => {
     const formData = {
-      date,
-      hoursOfSleep,
-      litterHabits,
-      activityLevel,
-      unusualBehaviours,
-      foods: selectedFoods,
+      catID,
+      Date: date,
+      ActivityLevel: activityLevel,
+      SleepingHours: hoursOfSleep,
+      LitterHabits: litterHabits,
+      UnusualBehaviours: unusualBehaviours,
+      foodData: JSON.stringify(selectedFoods),    // stringify the array as the corresponding db column DataType is JSON
+    };
+
+    const userToken = localStorage.getItem("userToken");
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userToken}`,
+      },
     };
 
     // Send form data to the backend
-    axios
-      .post('/api/dailylog', formData)
-      .then(response => {
+    axios.post("http://localhost:3000/api/dailylogs/:catID/addLog", formData, config)
+      .then((response) => {
         console.log("Data submitted successfully:", response);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error("There was an error submitting the data:", error);
       });
 
@@ -101,32 +114,41 @@ useEffect(() => {
 
           <Typography gutterBottom>Food Logs</Typography>
           <Autocomplete
-      options={foodProducts.map(food => food.product)} 
-      onInputChange={handleAutoComplete}
-      renderInput={(params) => (
-        <TextField {...params} label="Search Food Products" />
-      )}
-    />
+            options={foodProducts.map((food) => food.fullProductName)}
+            onChange={(event, newValue) => handleAutoComplete(event, newValue)}
+            renderInput={(params) => (
+              <TextField {...params} label="Search Food Products" />
+            )}
+          />
 
           <List>
             {selectedFoods.map((food, index) => (
               <ListItem key={index}>
-                {editableIndex === index ? (
-                  <TextField
-                    autoFocus
-                    value={food}
-                    onChange={(e) => {
-                      const newSelectedFoods = [...selectedFoods];
-                      newSelectedFoods[index] = e.target.value;
-                      setSelectedFoods(newSelectedFoods);
-                    }}
-                  />
-                ) : (
-                  <Typography>{food}</Typography>
-                )}
-                {/* <IconButton onClick={() => handleEdit(index)}>
-                  <EditIcon />
-                </IconButton> */}
+                <Typography>{food.fullProductName}</Typography>
+                <Select
+                  value={food.servingSize}
+                  onChange={(e) => {
+                    const newSelectedFoods = [...selectedFoods];
+                    newSelectedFoods[index].servingSize = e.target.value;
+                    setSelectedFoods(newSelectedFoods);
+                  }}>
+                  <MenuItem value="10gm">10gm</MenuItem>
+                  <MenuItem value="20gm">20gm</MenuItem>
+                  <MenuItem value="30gm">30gm</MenuItem>
+                  <MenuItem value="40gm">40gm</MenuItem>
+                  <MenuItem value="50gm">50gm</MenuItem>
+                  <MenuItem value="60gm">60gm</MenuItem>
+                  <MenuItem value="70gm">70gm</MenuItem>
+                  <MenuItem value="80gm">80gm</MenuItem>
+                  <MenuItem value="90gm">90gm</MenuItem>
+                  <MenuItem value="100gm">100gm</MenuItem>
+                  <MenuItem value="110gm">110gm</MenuItem>
+                  <MenuItem value="120gm">120gm</MenuItem>
+                  <MenuItem value="130gm">130gm</MenuItem>
+                  <MenuItem value="140gm">140gm</MenuItem>
+                  <MenuItem value="150gm">150gm</MenuItem>
+                  <MenuItem value="160gm">160gm</MenuItem>
+                </Select>
                 <IconButton onClick={() => handleDelete(index)}>
                   <DeleteIcon />
                 </IconButton>
@@ -172,7 +194,8 @@ useEffect(() => {
           Submit
         </Button>
       </DialogActions>
-
     </Dialog>
   );
 }
+
+export default DailyLogForm

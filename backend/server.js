@@ -31,7 +31,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/user', userSignUpRoutes);       // All routes in userSignUpRoutes.js will start with "/user"
 app.use('/api/user', userLogInRoutes);      // All routes in userLogInRoutes.js will start with "/api/user"
 app.use('/cat', catRoutes);       // All routes in catRoutes.js will start with "/cat"
-app.use('/api/dailyLogs', dailyLogsRoutes);  // All routes in dailyLogsRoutes.js will start with "/dailyLogs"
+app.use('/api/dailylogs', dailyLogsRoutes);  // All routes in dailyLogsRoutes.js will start with "/dailyLogs"
 app.use('/api', foodProductsRoutes);           // All routes in foodProductRoutes.js will start with "/api"
   
 

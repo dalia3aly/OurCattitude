@@ -5,7 +5,10 @@ import Grid from '@mui/material/Grid';
 const UserProfileComp = () => {
   const [cats, setCats] = useState([]); // Assume this will hold the data from your DB
 
-  // Simulate fetching data from your database
+  // Simulate fetching data from database for frontend testing 
+
+
+  
   useEffect(() => {
     // fetch('/api/cats') or however you get your data
     // .then(response => response.json())

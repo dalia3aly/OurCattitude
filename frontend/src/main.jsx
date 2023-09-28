@@ -12,10 +12,17 @@ import { LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Navigate } from "react-router-dom";
+import CatProfilePage from './pages/CatProfilePage.jsx';
+import ResponsiveAppBar from './components/ResponsiveAppBar.jsx';
 
 const ProtectedUserProfile = () => {
   const { isAuthenticated } = useAuth();  // Using AuthContext here
   return isAuthenticated ? <UserProfilePage /> : <Navigate to="/login" />;
+};
+
+const ProtectedCatProfile = () => {
+  const { isAuthenticated } = useAuth();  // Using AuthContext here
+  return isAuthenticated ? <CatProfilePage /> : <Navigate to="/login" />;
 };
 
 ReactDOM.render(
@@ -28,6 +35,7 @@ ReactDOM.render(
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/login" element={<LoginPage />} />
             <Route path="/userprofile" element={<ProtectedUserProfile />} />
+            <Route path="/cat/:catID" element={<ProtectedCatProfile />} />
             {/* Add more Routes here as needed */}
           </Routes>
         </BrowserRouter>
