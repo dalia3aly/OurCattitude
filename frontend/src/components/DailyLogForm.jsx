@@ -11,6 +11,8 @@ import {
   Autocomplete,
   Stack,
   IconButton,
+  Box,
+  InputLabel,
   ListItem,
   List,
 } from "@mui/material";
@@ -18,16 +20,19 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { Select, MenuItem } from "@mui/material";
 import axios from "axios";
 
- function DailyLogForm({ open, handleClose, catID }) {
+function DailyLogForm({ open, handleClose, catID }) {
   const [date, setDate] = useState("");
   const [hoursOfSleep, setHoursOfSleep] = useState(0);
   const [litterHabits, setLitterHabits] = useState("");
   const [activityLevel, setActivityLevel] = useState(1);
   const [unusualBehaviours, setUnusualBehaviours] = useState("");
+  const [envChanges, setEnvChanges] = useState("");
 
   const [foodProducts, setFoodProducts] = useState([]);
   const [selectedFoods, setSelectedFoods] = useState([]);
   const [editableIndex, setEditableIndex] = useState(null);
+
+// to fetch available food products from the backend to select food products consumed by the cat
 
   useEffect(() => {
     const userToken = localStorage.getItem("userToken");
@@ -37,7 +42,8 @@ import axios from "axios";
       },
     };
 
-    axios.get("http://localhost:3000/api/foodproducts", config)
+    axios
+      .get("http://localhost:3000/api/foodproducts", config)
       .then((response) => {
         setFoodProducts(response.data);
       })
@@ -49,12 +55,11 @@ import axios from "axios";
   const handleAutoComplete = (event, newValue) => {
     setSelectedFoods([
       ...selectedFoods,
-      { fullProductName: newValue, servingSize: "50gm"  },    // Default serving size is 50gm
+      { fullProductName: newValue, servingSize: "50gm" },     // Default serving size is 50gm
     ]);
   };
-  
 
-  //Edit selected food products
+  //Edit selected food products list
 
   const handleDelete = (index) => {
     const newSelectedFoods = [...selectedFoods];
@@ -74,7 +79,8 @@ import axios from "axios";
       SleepingHours: hoursOfSleep,
       LitterHabits: litterHabits,
       UnusualBehaviours: unusualBehaviours,
-      foodData: JSON.stringify(selectedFoods),    // stringify the array as the corresponding db column DataType is JSON
+      EnvChanges: envChanges,
+      foodData: JSON.stringify(selectedFoods),  // stringify the array as the corresponding db column DataType is JSON
     };
 
     const userToken = localStorage.getItem("userToken");
@@ -85,7 +91,12 @@ import axios from "axios";
     };
 
     // Send form data to the backend
-    axios.post("http://localhost:3000/api/dailylogs/:catID/addLog", formData, config)
+    axios
+      .post(
+        "http://localhost:3000/api/dailylogs/:catID/addLog",
+        formData,
+        config
+      )
       .then((response) => {
         console.log("Data submitted successfully:", response);
       })
@@ -101,8 +112,13 @@ import axios from "axios";
       <DialogTitle>Daily Log</DialogTitle>
       <DialogContent>
         <Stack spacing={4}>
-          {/* Existing form fields with added Typography for labels... */}
-
+          <TextField
+            label=""
+            type="date"
+            value={date}
+            onChange={(e) => setDate(e.target.value)}
+            fullWidth
+          />
           <Typography gutterBottom>Activity Level</Typography>
           <Slider
             value={activityLevel}
@@ -112,7 +128,7 @@ import axios from "axios";
             onChange={(_, newValue) => setActivityLevel(newValue)}
           />
 
-          <Typography gutterBottom>Food Logs</Typography>
+          <Typography gutterBottom>Food Consumed</Typography>
           <Autocomplete
             options={foodProducts.map((food) => food.fullProductName)}
             onChange={(event, newValue) => handleAutoComplete(event, newValue)}
@@ -132,22 +148,22 @@ import axios from "axios";
                     newSelectedFoods[index].servingSize = e.target.value;
                     setSelectedFoods(newSelectedFoods);
                   }}>
-                  <MenuItem value="10gm">10gm</MenuItem>
-                  <MenuItem value="20gm">20gm</MenuItem>
-                  <MenuItem value="30gm">30gm</MenuItem>
-                  <MenuItem value="40gm">40gm</MenuItem>
-                  <MenuItem value="50gm">50gm</MenuItem>
-                  <MenuItem value="60gm">60gm</MenuItem>
-                  <MenuItem value="70gm">70gm</MenuItem>
-                  <MenuItem value="80gm">80gm</MenuItem>
-                  <MenuItem value="90gm">90gm</MenuItem>
-                  <MenuItem value="100gm">100gm</MenuItem>
-                  <MenuItem value="110gm">110gm</MenuItem>
-                  <MenuItem value="120gm">120gm</MenuItem>
-                  <MenuItem value="130gm">130gm</MenuItem>
-                  <MenuItem value="140gm">140gm</MenuItem>
-                  <MenuItem value="150gm">150gm</MenuItem>
-                  <MenuItem value="160gm">160gm</MenuItem>
+                  <MenuItem value="10">10gm</MenuItem>
+                  <MenuItem value="20">20gm</MenuItem>
+                  <MenuItem value="30">30gm</MenuItem>
+                  <MenuItem value="40">40gm</MenuItem>
+                  <MenuItem value="50">50gm</MenuItem>
+                  <MenuItem value="60">60gm</MenuItem>
+                  <MenuItem value="70">70gm</MenuItem>
+                  <MenuItem value="80">80gm</MenuItem>
+                  <MenuItem value="90">90gm</MenuItem>
+                  <MenuItem value="100">100gm</MenuItem>
+                  <MenuItem value="110">110gm</MenuItem>
+                  <MenuItem value="120">120gm</MenuItem>
+                  <MenuItem value="130">130gm</MenuItem>
+                  <MenuItem value="140">140gm</MenuItem>
+                  <MenuItem value="150">150gm</MenuItem>
+                  <MenuItem value="160">160gm</MenuItem>
                 </Select>
                 <IconButton onClick={() => handleDelete(index)}>
                   <DeleteIcon />
@@ -156,33 +172,43 @@ import axios from "axios";
             ))}
           </List>
 
-          <TextField
-            label=""
-            type="date"
-            value={date}
-            onChange={(e) => setDate(e.target.value)}
-            fullWidth
-          />
-          <TextField
-            label="Hours of Sleep"
-            type="number"
-            value={hoursOfSleep}
-            onChange={(e) => setHoursOfSleep(e.target.value)}
-            fullWidth
-          />
-          <TextField
-            label="Litter Habits"
-            value={litterHabits}
-            onChange={(e) => setLitterHabits(e.target.value)}
-            fullWidth
-          />
+          <Box>
+        <InputLabel>Hours of Sleep</InputLabel>
+        <TextField
+          type="number"
+          value={hoursOfSleep}
+          onChange={(e) => setHoursOfSleep(e.target.value)}
+          fullWidth
+        />
+      </Box>
+      <Box>
+        <InputLabel>Litterbox Patterns - if normal, leave blank</InputLabel>
+        <TextField
+          value={litterHabits}
+          label="ex: went more often, diarrhea, constipation, ..etc"
+          onChange={(e) => setLitterHabits(e.target.value)}
+          fullWidth
+        />
+      </Box>
+      <Box>
+        <InputLabel>Any Unusual Behaviour? if no, leave blank</InputLabel>
+        <TextField
+          value={unusualBehaviours}
+          label="ex: vomiting, biting, more vocal, ..etc"
+          onChange={(e) => setUnusualBehaviours(e.target.value)}
+          fullWidth
+        />
+      </Box>
+      <Box>
+        <InputLabel>Anything changed in your routine? if no, leave blank</InputLabel>
+        <TextField
+          value={envChanges}
+          label="ex: moved houses, new body spray, ..etc"
+          onChange={(e) => setEnvChanges(e.target.value)}
+          fullWidth
+        />
+      </Box>
 
-          <TextField
-            label="Unusual Behaviours"
-            value={unusualBehaviours}
-            onChange={(e) => setUnusualBehaviours(e.target.value)}
-            fullWidth
-          />
         </Stack>
       </DialogContent>
 
@@ -198,4 +224,4 @@ import axios from "axios";
   );
 }
 
-export default DailyLogForm
+export default DailyLogForm;

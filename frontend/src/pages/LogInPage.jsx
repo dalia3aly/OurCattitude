@@ -10,15 +10,14 @@ const LogInPage = () => {
   const handleLogin = () => {
     setShowWelcomeImage(true);
   };
-    // Do whatever you want to do when a user logs in
-    // For example, navigate to the user's profile page
+    // navigate to the user's profile page
     useEffect(() => {
       let timer;
       // If showWelcomeImage is true, set up a timer
       if (showWelcomeImage) {
         timer = setTimeout(() => {
-          // Navigate to the UserProfile page after 2 seconds
-          // Use your actual routing logic here
+
+          // Navigate to the UserProfile page after 2 seconds (not working atm, will have a look later)
           console.log('Navigating to UserProfile');
           setShowWelcomeImage(false); // Reset the state
         }, 2000);

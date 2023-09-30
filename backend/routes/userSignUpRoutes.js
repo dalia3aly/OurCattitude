@@ -9,7 +9,7 @@ router.post('/signup',
     body('username').isString().isLength({ min: 6 }),
     body('email').isEmail(),
     body('password').isLength({ min: 6 }),
-    // add more validations here
+    // May add more validations here if needed
   ],
   async (req, res) => {
     const errors = validationResult(req);

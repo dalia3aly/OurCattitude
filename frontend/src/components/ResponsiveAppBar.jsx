@@ -52,6 +52,7 @@ const ResponsiveAppBar = () => {
     handleCloseUserMenu(); // Close the user menu
   };
 
+
   return (
     <AppBar
       position="static"

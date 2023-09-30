@@ -1,5 +1,5 @@
 export const isUserLoggedIn = () => {
     const token = localStorage.getItem('token');
-    // logic to validate the token as needed
+    // needs clean up later to be inline with user validation logic
     return !!token;
   };

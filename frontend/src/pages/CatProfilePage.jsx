@@ -1,18 +1,40 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
-import { Button, TextField, List, ListItem, ListItemText, Typography } from "@mui/material";
+import {
+  Button,
+  TextField,
+  List,
+  ListItem,
+  ListItemText,
+  Typography,
+  Grid,
+  Box,
+} from "@mui/material";
 import DailyLogForm from "../components/DailyLogForm";
 import CatDetails from "../components/CatDetails";
 import ResponsiveAppBar from "../components/ResponsiveAppBar";
 import ViewDailyLog from "../components/ViewDailyLog";
+import CatSleepChart from "../components/CatSleepChart";
+import CatFeedingChart from "../components/CatFeedingChart";
+import CatActivityLevelChart from "../components/CatActivityLevelChart";
+import CatLitterHabitsChart from "../components/CatLitterHabitsChart";
+import CatUnusualBehavioursChart from "../components/CatUnusualBehavioursChart";
+import CatReportGenerator from '../components/CatReportGenerator';
 
-const CatProfilePage = () => {
-  const { catID } = useParams(); // catID is now extracted from the URL for CatDetails
+
+  const CatProfilePage = () => {
+  const { catID } = useParams();              // catID is now extracted from the URL for CatDetails
   const [open, setOpen] = useState(false);
   const [viewLogOpen, setViewLogOpen] = useState(false);
   const [searchDate, setSearchDate] = useState("");
-  const [logs, setLogs] = useState([]); // Initialize logs as an empty array
+  const [logs, setLogs] = useState([]);       // Initialize logs as an empty array
+
+  // Report Generator state variables:
+
+  const [startDate, setStartDate] = useState('');
+  const [endDate, setEndDate] = useState('');
+
 
   useEffect(() => {
     const fetchLogs = async () => {
@@ -23,7 +45,10 @@ const CatProfilePage = () => {
             Authorization: `Bearer ${userToken}`,
           },
         };
-        const response = await axios.get(`http://localhost:3000/api/dailylogs/${catID}/logs`, config);
+        const response = await axios.get(
+          `http://localhost:3000/api/dailylogs/${catID}/logs`,
+          config
+        );
         if (response.data) {
           setLogs(response.data);
         }
@@ -44,62 +69,141 @@ const CatProfilePage = () => {
     setOpen(true);
   };
 
-  const handleViewLogOpen = () => {  
+  const handleViewLogOpen = () => {
     setViewLogOpen(true);
   };
 
-  const handleViewLogClose = () => {  
+  const handleViewLogClose = () => {
     setViewLogOpen(false);
+  };
+
+  // Define the handleOpenReportDialog function
+  const handleOpenReportDialog = () => {
+    // Open the report generation dialog
+    setOpen(true);
   };
 
   return (
     <>
       <ResponsiveAppBar />
-      <CatDetails catID={catID} />
-      <ViewDailyLog open={viewLogOpen} handleClose={handleViewLogClose} catID={catID} date={searchDate} /> 
+      <Grid
+        container
+        spacing={4}
+        alignItems="center"
+        justifyContent="center"
+        style={{ minHeight: "100vh" }}>
+        {/* First Row */}
 
-      <Typography variant="h6" component="h2" gutterBottom>
-        Select a Date to see what happened that day!
-      </Typography>
+        <Grid item xs={12} lg={6}>
+          {/* Nested Grid for CatDetails and related components */}
+          <Grid container direction="column" spacing={2}>
+            <Grid item>
+              <CatDetails catID={catID} />
+            </Grid>
 
-      <TextField
-        id="date"
-        label="Search by date"
-        type="date"
-        value={searchDate}
-        onChange={(e) => setSearchDate(e.target.value)}
-        InputLabelProps={{
-          shrink: true,
-        }}
-        margin="normal"
-      />
-      <List>
-        {filteredLogs.map((log, index) => (
-          <ListItem key={index}>
-            <ListItemText primary={log.message} secondary={log.date} />
-          </ListItem>
-        ))}
-      </List>
-      <Button
-        onClick={handleViewLogOpen}  // New Button
-        type="button"
-        fullWidth
-        variant="contained"
-        color="secondary"
-        margin="normal">
-        View Log
-      </Button>
-      <br />
-      <Button
-        onClick={handleOpen}
-        type="submit"
-        fullWidth
-        variant="contained"
-        color="primary"
-        margin="normal">
-        Add Log
-      </Button>
-      <DailyLogForm open={open} handleClose={handleClose} catID={catID} />
+            <Grid item>
+              <Typography
+                variant="h6"
+                component="h2"
+                gutterBottom
+                style={{ textAlign: "center" }}>
+                Select a Date to see what happened that day!
+              </Typography>
+            </Grid>
+
+            <Grid item>
+              <TextField
+                id="date"
+                label="Search by date"
+                type="date"
+                value={searchDate}
+                onChange={(e) => setSearchDate(e.target.value)}
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                margin="normal"
+              />
+            </Grid>
+
+            <Grid item>
+              <List>
+                {filteredLogs.map((log, index) => (
+                  <ListItem key={index}>
+                    <ListItemText primary={log.message} secondary={log.date} />
+                  </ListItem>
+                ))}
+              </List>
+              <Button
+                onClick={handleViewLogOpen}
+                type="button"
+                fullWidth
+                variant="contained"
+                color="secondary"
+                margin="normal">
+                View Log
+              </Button>
+            </Grid>
+
+            <Grid item>
+              <Button
+                onClick={handleOpen}
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                margin="normal">
+                Add Log
+              </Button>
+            </Grid>
+
+            <Grid item>
+              <DailyLogForm
+                open={open}
+                handleClose={handleClose}
+                catID={catID}
+              />
+            </Grid>
+            <Grid item xs={12} lg={6}>
+              <ViewDailyLog
+                open={viewLogOpen}
+                handleClose={handleViewLogClose}
+                catID={catID}
+                date={searchDate}
+              />
+            </Grid>
+          </Grid>
+        </Grid>
+
+        <Box>
+            <Typography variant="h6" component="h2" gutterBottom>
+              Generate Monthly Report
+            </Typography>
+            <CatReportGenerator
+              catID={catID}
+              startDate={startDate}
+              endDate={endDate}
+            />
+          </Box>
+
+        <Grid item xs={12} lg={6}>
+          <CatSleepChart logs={logs} />
+        </Grid>
+        <Grid item xs={12} lg={6}>
+          <CatFeedingChart catID={catID} />
+        </Grid>
+
+        <Grid item xs={12} lg={6}>
+          <CatActivityLevelChart logs={logs} />
+        </Grid>
+
+        <Grid item xs={12} lg={6}>
+          <CatLitterHabitsChart logs={logs} />
+        </Grid>
+
+        <Grid item xs={12} lg={6}>
+          <CatUnusualBehavioursChart logs={logs} />
+        </Grid>
+      </Grid>
     </>
   );
 };

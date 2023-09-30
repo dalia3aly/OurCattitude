@@ -10,11 +10,3 @@ const ProtectedRoutes = ({ ...props }) => {
 };
 
 export default ProtectedRoutes;
-
-
-// const ProtectedRoutes = ({ ...props }) => {
-//   const isLoggedIn = isUserLoggedIn();
-//   return isLoggedIn ? <Route {...props} /> : <Navigate to="/login" />;
-// };
-
-// export default ProtectedRoutes;

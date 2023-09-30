@@ -15,10 +15,10 @@ const CatModel = require('../models/Cat');
 //Routes for Cat CRUD operations
 
 router.post('/addCat', verifyToken, async (req, res) => {
-  console.log("UserID from request:", req.userID);       // Debug line
+  console.log("UserID from request:", req.userID);           // Debugging line
 
   const { name, breed, colour, ageYears, ageMonths, gender, avatar, chronic_issues } = req.body;
-  const userID = req.userID;  // Ensure this variable name matches with the one set in the middleware
+  const userID = req.userID;              // Ensure this variable name matches with the one set in the middleware
 
   try {
 
@@ -29,7 +29,7 @@ router.post('/addCat', verifyToken, async (req, res) => {
       name,
       breed,
       colour,
-      age,          // Now a JSON object
+      age,          // Now a JSON object {years: 1, months: 2}
       gender,
       avatar,  
       chronic_issues,

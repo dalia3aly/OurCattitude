@@ -24,7 +24,7 @@ router.post('/login', async (req, res) => {
   }
 
   // Generate JWT token
-  console.log('Existing User:', existingUser); // for further verification during testing
+  console.log('Existing User:', existingUser);      // for further verification during testing
   const token = jwt.sign({ userID: existingUser.userID }, process.env.JWT_SECRET, { expiresIn: '2h' });
 
   // Send token and user data

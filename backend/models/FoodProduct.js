@@ -11,6 +11,8 @@ FoodProduct.init({
     allowNull: false,
     autoIncrement: true,
   },
+
+  // concatenated columns in MySQL table ('brand' + 'product') + ServingSize under 'foodData' column @ 'DailyLogs' table
   brand: {
     type: DataTypes.STRING,
     allowNull: true,

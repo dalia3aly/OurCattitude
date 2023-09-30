@@ -35,9 +35,13 @@ DailyLogs.init({
   },
   LitterHabits: {
     type: DataTypes.STRING(250),
-    allowNull: false
+    allowNull: true
   },
   UnusualBehaviours: {
+    type: DataTypes.STRING(250),
+    allowNull: true
+  },
+  EnvChanges: {
     type: DataTypes.STRING(250),
     allowNull: true
   },
