@@ -1,31 +1,32 @@
 import React from 'react';
-import { Container, Typography, Box } from '@mui/material';
+import { Grid, Typography, Box } from '@mui/material';
 import UserSignUp from "../components/UserSignUp";
-import ResponsiveAppBar from '../components/ResponsiveAppBar';
+import GuestAppBar from '../components/MainAppBar';
 import Footer from '../themes/Footer';
 
 const SignUpPage = () => {
   return (
-    < >    
-    <ResponsiveAppBar />
-    <Container>
-      <Box my={4}>
-        <Typography variant="h4" gutterBottom>
-          Sign Up..It's free!
+    <div>
+      <GuestAppBar spacing={3} maxWidth="lg" />
+      <Grid container spacing={3} maxWidth="lg">
+
+        {/* Wide Grid for desktop, full width for mobile */}
+        <Grid
+          item
+          xs={6}
+          sm={6}
+          md={9}
+          lg={12}
+          className="user-page-container">
+          <Box>
+          <Typography variant="body1" paragraph tyle={{ marginTop: "50px" }}>
+          Join us to keep track of your cats behaviours and routine !
         </Typography>
-        <Typography variant="body1" paragraph>
-          Join us now to keep track of your beloved cat's behaviours and routine!
-        </Typography>
-      </Box>
-      <UserSignUp />
-      <Box my={4}>
-        <Typography variant="body2">
-          By signing up, you agree to our <a href="/terms">Terms of Service</a> and <a href="/privacy">Privacy Policy</a>.
-        </Typography>
-      </Box>
-    </Container>
-    <Footer />
-    </>
+            <UserSignUp />
+          </Box>
+        </Grid>
+      </Grid>
+    </div>
 
   );
 };

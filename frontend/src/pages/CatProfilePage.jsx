@@ -13,28 +13,26 @@ import {
 } from "@mui/material";
 import DailyLogForm from "../components/DailyLogForm";
 import CatDetails from "../components/CatDetails";
-import ResponsiveAppBar from "../components/ResponsiveAppBar";
+import MainAppBar from "../components/MainAppBar";
 import ViewDailyLog from "../components/ViewDailyLog";
 import CatSleepChart from "../components/CatSleepChart";
 import CatFeedingChart from "../components/CatFeedingChart";
 import CatActivityLevelChart from "../components/CatActivityLevelChart";
 import CatLitterHabitsChart from "../components/CatLitterHabitsChart";
 import CatUnusualBehavioursChart from "../components/CatUnusualBehavioursChart";
-import CatReportGenerator from '../components/CatReportGenerator';
+import CatReportGenerator from "../components/CatReportGenerator";
 
-
-  const CatProfilePage = () => {
-  const { catID } = useParams();              // catID is now extracted from the URL for CatDetails
+const CatProfilePage = () => {
+  const { catID } = useParams(); // catID is now extracted from the URL for CatDetails
   const [open, setOpen] = useState(false);
   const [viewLogOpen, setViewLogOpen] = useState(false);
   const [searchDate, setSearchDate] = useState("");
-  const [logs, setLogs] = useState([]);       // Initialize logs as an empty array
+  const [logs, setLogs] = useState([]); // Initialize logs as an empty array
 
   // Report Generator state variables:
 
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
-
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   useEffect(() => {
     const fetchLogs = async () => {
@@ -85,10 +83,11 @@ import CatReportGenerator from '../components/CatReportGenerator';
 
   return (
     <>
-      <ResponsiveAppBar />
-      <Grid
+      <MainAppBar />
+      <Grid item xs={12}
+        className="content-padding"
         container
-        spacing={4}
+        spacing={2}
         alignItems="center"
         justifyContent="center"
         style={{ minHeight: "100vh" }}>
@@ -171,19 +170,17 @@ import CatReportGenerator from '../components/CatReportGenerator';
                 date={searchDate}
               />
             </Grid>
+
+            <Grid item xs={12} lg={6} className="button">
+
+              <CatReportGenerator 
+                catID={catID}
+                startDate={startDate}
+                endDate={endDate}
+              />
+            </Grid>
           </Grid>
         </Grid>
-
-        <Box>
-            <Typography variant="h6" component="h2" gutterBottom>
-              Generate Monthly Report
-            </Typography>
-            <CatReportGenerator
-              catID={catID}
-              startDate={startDate}
-              endDate={endDate}
-            />
-          </Box>
 
         <Grid item xs={12} lg={6}>
           <CatSleepChart logs={logs} />

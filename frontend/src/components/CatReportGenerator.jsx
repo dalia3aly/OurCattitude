@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import '../../report.css';
 import {
   Button,
   Dialog,
@@ -12,23 +11,9 @@ import {
   TableCell,
   TableHead,
   TableRow,
-  Paper,
-  TableContainer,
 } from "@mui/material";
 import axios from "axios";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Tooltip,
-  Legend,
-  ResponsiveContainer,
-  Label,
-} from 'recharts';
 import CatSleepChart from './CatSleepChart';
-import CatFeedingChart from './CatFeedingChart';
 import CatActivityLevelChart from './CatActivityLevelChart';
 import CatLitterHabitsChart from './CatLitterHabitsChart';
 import CatUnusualBehavioursChart from './CatUnusualBehavioursChart';
@@ -106,8 +91,9 @@ const CatReportGenerator = ({ catID }) => {
                 <TableCell>Hours of Sleep</TableCell>
                 <TableCell>Litter Habits</TableCell>
                 <TableCell>Unusual Behaviours</TableCell>
+                <TableCell>Env. Changes</TableCell>
                 <TableCell>Food Consumed</TableCell>
-                <TableCell>Servig Size</TableCell>
+                <TableCell>Servig Size in gm</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -118,6 +104,7 @@ const CatReportGenerator = ({ catID }) => {
                   <TableCell>{log.SleepingHours}</TableCell>
                   <TableCell>{log.LitterHabits}</TableCell>
                   <TableCell>{log.UnusualBehaviours}</TableCell>
+                  <TableCell>{log.EnvChanges}</TableCell>
                   <TableCell>
                     {log.foodData &&
                       JSON.parse(log.foodData).map((food, foodIndex) => (

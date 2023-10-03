@@ -200,7 +200,7 @@ function DailyLogForm({ open, handleClose, catID }) {
         />
       </Box>
       <Box>
-        <InputLabel>Anything changed in your routine? if no, leave blank</InputLabel>
+        <InputLabel>Anything changed in your environment? if no, leave blank</InputLabel>
         <TextField
           value={envChanges}
           label="ex: moved houses, new body spray, ..etc"

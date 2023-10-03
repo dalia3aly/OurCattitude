@@ -73,7 +73,7 @@ const UserSignUp = () => {
 
   return (
     <Container>
-      <Typography variant="h4">User Sign Up</Typography>
+      <Typography variant="h5">Sign Up</Typography>
       {isSubmitted ? (
         <div>
           <Typography variant="h5">Thank you for signing up!</Typography>

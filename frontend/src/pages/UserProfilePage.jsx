@@ -7,9 +7,10 @@ import Header from "../themes/Header";
 import Footer from "../themes/Footer";
 import CatCard from "../components/CatCard";
 import CatFactBox from "../components/CatFactBox"; // Assuming you have a separate Cat facts box component
-import ResponsiveAppBar from "../components/ResponsiveAppBar";
+import AppBar from "../components/MainAppBar";
 import AddingCat from "../components/AddingCat";
 import axios from "axios";
+import MainAppBar from "../components/MainAppBar";
 
 
 const UserProfile = () => {
@@ -83,8 +84,8 @@ const UserProfile = () => {
 
   return (
     <Container>
-      <ResponsiveAppBar />
-      <Grid container spacing={3}>
+      <MainAppBar />
+      <Grid container spacing={3} className = "content-padding">
         <Grid item xs={12}>
           <Grid container spacing={2}>
             {cats.map((cat, index) => (
@@ -118,8 +119,6 @@ const UserProfile = () => {
         </Grid>
       </Grid>
 
-      {/* Footer */}
-      <Footer />
     </Container>
   );
 };

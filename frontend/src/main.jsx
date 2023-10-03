@@ -13,12 +13,20 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Navigate } from "react-router-dom";
 import CatProfilePage from './pages/CatProfilePage.jsx';
-import ResponsiveAppBar from './components/ResponsiveAppBar.jsx';
+import AboutUsPage from './pages/AboutUsPage.jsx';
+import AccountPage from './pages/AccountPage.jsx';
+
 
 const ProtectedUserProfile = () => {
   const { isAuthenticated } = useAuth();  // Using AuthContext here
   return isAuthenticated ? <UserProfilePage /> : <Navigate to="/login" />;
 };
+
+const ProtectedAccount = () => {
+  const { isAuthenticated } = useAuth();  // Using AuthContext here
+  return isAuthenticated ? <AccountPage /> : <Navigate to="/login" />;
+};
+
 
 const ProtectedCatProfile = () => {
   const { isAuthenticated } = useAuth();  // Using AuthContext here
@@ -28,14 +36,17 @@ const ProtectedCatProfile = () => {
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={MainTheme}>
+      
       <AuthProvider>
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/signup" element={<SignUpPage />} />
             <Route path="/login" element={<LoginPage />} />
+            <Route path="/about" element={<AboutUsPage />} />
             <Route path="/userprofile" element={<ProtectedUserProfile />} />
             <Route path="/cat/:catID" element={<ProtectedCatProfile />} />
+            <Route path="/user/:userID" element={<ProtectedAccount />} />
             {/* Add more Routes here as needed */}
           </Routes>
         </BrowserRouter>

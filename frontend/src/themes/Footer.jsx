@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Typography, Box } from '@mui/material';
 import { makeStyles } from '@mui/styles';
-import footerBackground from '../assets/footerbg.png'; // Adjust the path to the actual image path
+import CatFactBox from '../components/CatFactBox';
 
 const useStyles = makeStyles((theme) => ({
   footer: {
@@ -28,6 +28,7 @@ const Footer = () => {
   return (
     <Box className={classes.footer}>
       <Container>
+        <CatFactBox />
         <Typography variant="body2" className={classes.text}>
           © 2023 OurCattitude. All rights reserved.
         </Typography>

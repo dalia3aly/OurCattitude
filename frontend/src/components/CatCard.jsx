@@ -30,7 +30,7 @@ const CatCard = ({ cat }) => {
     <Card className={classes.root}>
       <CardMedia
         className={classes.media}
-        image={cat?.avatar ? `/Avatars/${cat.avatar}.png` : '/happycat.png'}
+        image={cat?.avatar ? `/Avatars/${cat.avatar}.png` : '/catitRainbow.png'}
         title={cat?.name || 'Cat'}
       />
       <CardContent>

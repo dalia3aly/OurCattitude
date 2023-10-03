@@ -1,0 +1,30 @@
+/* This targets the entire body but only on login and signup pages */
+.body {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-image: url("/bckgrnd.png") !important;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  background-size: cover;
+  background-size: cover !important;
+  height: 100vh !important;
+  width: 100% !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+/* Target your specific Container and Box */
+.login-signup-container {
+  width: 100%;
+  max-width: 400px; /* or whatever your preferred width is */
+  padding: 15px;
+  background: rgba(238, 213, 213, 0.8); /* Semi-transparent white */
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
