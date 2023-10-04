@@ -43,7 +43,7 @@ function DailyLogForm({ open, handleClose, catID }) {
     };
 
     axios
-      .get("http://localhost:3000/api/foodproducts", config)
+      .get(`http://localhost:3000/api/foodproducts`, config)
       .then((response) => {
         setFoodProducts(response.data);
       })
@@ -93,7 +93,7 @@ function DailyLogForm({ open, handleClose, catID }) {
     // Send form data to the backend
     axios
       .post(
-        "http://localhost:3000/api/dailylogs/:catID/addLog",
+        `http://localhost:3000/api/dailylogs/:catID/addLog`,
         formData,
         config
       )

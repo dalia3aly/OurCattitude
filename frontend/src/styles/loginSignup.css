@@ -1,4 +1,4 @@
-/* This targets the entire body but only on login and signup pages */
+/* This targets the entire body only on login and signup pages, but it's not functional atm */
 .body {
   margin: 0;
   padding: 0;
@@ -19,12 +19,12 @@
   align-items: center !important;
 }
 
-/* Target your specific Container and Box */
+/* Target specific Container and Box */
 .login-signup-container {
   width: 100%;
-  max-width: 400px; /* or whatever your preferred width is */
+  max-width: 400px; 
   padding: 15px;
-  background: rgba(238, 213, 213, 0.8); /* Semi-transparent white */
+  background: rgba(238, 213, 213, 0.8);
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }

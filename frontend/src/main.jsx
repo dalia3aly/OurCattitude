@@ -8,8 +8,6 @@ import MainTheme from './themes/MainTheme';
 import SignUpPage from './pages/SignUpPage.jsx';
 import LoginPage from './pages/LogInPage.jsx';
 import UserProfilePage from './pages/UserProfilePage.jsx';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns'
 import { AuthProvider, useAuth } from './context/AuthContext';
 import { Navigate } from "react-router-dom";
 import CatProfilePage from './pages/CatProfilePage.jsx';

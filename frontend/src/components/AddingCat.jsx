@@ -87,7 +87,7 @@ const AddingCat = ({ closeForm }) => {
 
     // Submit to the server below
 
-    axios.post("http://localhost:3000/cat/addCat", catInfo, {
+    axios.post(`http://localhost:3000/cat/addCat`, catInfo, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${userToken}`,
@@ -105,9 +105,9 @@ const AddingCat = ({ closeForm }) => {
 
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" style={{ padding: "20px", alignContent: "center"}}>
       <Typography component="h1" variant="h5">
-        Add a new Cat
+        Add Cat Details
       </Typography>
       <Box component="form" onSubmit={handleSubmit}>
         <TextField
@@ -205,8 +205,8 @@ const AddingCat = ({ closeForm }) => {
         </Select>
       </FormControl>
 
-        <FormControl component="fieldset" margin="normal">
-          <RadioGroup
+        <FormControl component="fieldset" margin="normal" alignContent="center">
+          <RadioGroup style={{ display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "center" }}
             aria-label="avatar"
             name="avatar"     
             value={catInfo.avatar}           

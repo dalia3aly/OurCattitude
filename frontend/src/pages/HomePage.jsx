@@ -6,9 +6,7 @@ import CatFactBox from '../components/CatFactBox';
 const HomePage = () => {
   return (
     <div>
-      <MainAppBar />  {/* Your Navigation Bar */}
-
-      {/* Main content */}
+      <MainAppBar />     
       <Container>
         <Grid container justifyContent="center" alignItems="center" style={{ minHeight: '100vh', marginTop: '5%'}}>
           <Grid item xs={12} sm={12} md={9} lg={3}>
@@ -24,7 +22,6 @@ const HomePage = () => {
         
       </Container>
 
-      {/* You can add more elements below this line */}
     </div>
   );
 };

@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useAuth } from '../context/AuthContext';  
 
 
-
+// for future user account management
 const UserUpdateInfo = () => {
     const [oldEmail, setOldEmail] = useState('');
     const [newEmail, setNewEmail] = useState('');

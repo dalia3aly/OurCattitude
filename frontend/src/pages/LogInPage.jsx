@@ -21,7 +21,7 @@ const LogInPage = () => {
           <Box>
           <Box display="flex" justifyContent="center">
               {/* Intro GIF */}
-              <img src="/Pumpkin.gif" alt="Welcome Back" style={{ width: '50%', height: 'auto' }} />
+              <img src="/Pumpkin.gif" alt="Welcome Back" style={{ width: '70%', height: 'auto' }} />
             </Box>
             <UserLogIn />
           </Box>

@@ -1,12 +1,9 @@
 // irrelevant to UserProfile.jsx 
 import React from "react";
 import { useState, useEffect } from "react";
-import { Navigate } from "react-router-dom";
 import { Box, Button, Container, Grid, Dialog, Stack } from "@mui/material";
-import Header from "../themes/Header";
-import Footer from "../themes/Footer";
 import CatCard from "../components/CatCard";
-import CatFactBox from "../components/CatFactBox"; // Assuming you have a separate Cat facts box component
+import CatFactBox from "../components/CatFactBox"; 
 import AppBar from "../components/MainAppBar";
 import AddingCat from "../components/AddingCat";
 import axios from "axios";
@@ -29,7 +26,7 @@ const UserProfile = () => {
         },
       };
       const response = await axios.get(
-        "http://localhost:3000/cat/user/cats",
+        `http://localhost:3000/cat/user/cats`,
         config
       );
       if (response.data) {
@@ -46,7 +43,7 @@ const UserProfile = () => {
 
   const handleCloseAddingCat = () => {
     setOpenAddingCat(false);
-    fetchCats();  // Now, fetchCats should be defined here
+    fetchCats(); 
   };
 
   useEffect(() => {
@@ -68,7 +65,7 @@ const UserProfile = () => {
         };
         console.log(config);
         const response = await axios.get(
-          "http://localhost:3000/cat/user/cats",
+          `http://localhost:3000/cat/user/cats`,
           config
         );
         if (response.data) {

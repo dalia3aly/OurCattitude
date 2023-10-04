@@ -85,19 +85,7 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 
-  /* .wrapper {
-    position: relative;
-  }
-  
-  .speech-bubble {
-    position: center;
-    width: 100%;
-    height: 100%;
-    display: flex center center;
-
-  
-    
-  } */
+ 
   
   .image-bubble {
     position: absolute;
@@ -123,12 +111,6 @@ button:focus-visible {
     transition: border-color 0.25s;
   }
   
-  
-
-/* .mui-container {
-  width: 100%; 
-  height: 100%; 
-  display: flex;
-  justify-content: center;
-  align-items: center;
-} */
+  .button:hover {
+    border-color: #FFB370;
+  }

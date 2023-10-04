@@ -22,7 +22,7 @@ const AboutUs = () => {
           Recognising a gap in available digital tools for Pet behaviour
           tracking, OurCattitude is a platform that seamlessly captures and
           stores pet behaviour patterns. With user-centric design, it allows
-          registered users to manage profiles of multiple cats, covering usual
+          registered users to manage profiles for multiple cats, covering usual
           behaviours like eating, sleeping, litter patterns and activity levels
           as well as unusual changes and behaviours. Real-time data
           visualization is offered through interactive line charts, enabling

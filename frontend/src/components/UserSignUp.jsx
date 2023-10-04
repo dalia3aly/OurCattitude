@@ -48,7 +48,7 @@ const UserSignUp = () => {
     return;  
   }
     try {
-      const response = await axios.post('http://localhost:3000/user/signup', formData);
+      const response = await axios.post(`http://localhost:3000/user/signup`, formData);
       
       // Reset any previous error messages
       setErrorMessage('');

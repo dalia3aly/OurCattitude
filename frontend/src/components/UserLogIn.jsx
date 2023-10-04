@@ -19,7 +19,7 @@ const UserLogIn = ({ onLogin }) => {
     const password = e.target.password.value;
   
     try {
-      const response = await axios.post('http://localhost:3000/api/user/login', {
+      const response = await axios.post(`http://localhost:3000/api/user/login`, {
         username,
         password,
       });

@@ -10,7 +10,7 @@ const MainTheme = createTheme({
       main: '#594949',
     },
   },
-  // ...other customisations
+  // ...other customisations if needed in the future
 });
 
 export default MainTheme;
