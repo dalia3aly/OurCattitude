@@ -24,8 +24,8 @@ MySQL
 
 
 Links
-Repository: https://github.com/your-github-username/ourcattitude
-Deployed site: https://ourcattitude.com
+Deployed site: https://www.ourcattitude.com
+
 
 # React + Vite
 
